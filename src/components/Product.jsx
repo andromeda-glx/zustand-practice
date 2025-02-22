@@ -1,7 +1,10 @@
+import useCart from "../stores/cart";
 import Button from "./Button";
 
 /* eslint-disable react/prop-types */
-export default function Product({ images, title, price }) {
+export default function Product({ id, images, title, price }) {
+    const handleClick = useCart((state) => state.addToCart);
+
     return (
         <div className="shadow-lg rounded-xl p-5 grid grid-rows-[3fr_2fr_1fr] min-h-[100%] hover:scale-101 transition-transform">
             <div className="w-[100%] max-h-[300px] flex justify-center">
@@ -17,7 +20,7 @@ export default function Product({ images, title, price }) {
                 </div>
             </div>
             <div className="w-[100%] flex items-center">
-                <Button text={"Add to Cart"} color={"#83B816"} />
+                <Button text={"Add to Cart"} color={"#83B816"} handleClick={handleClick} productId={id} />
             </div>
         </div>
     )
