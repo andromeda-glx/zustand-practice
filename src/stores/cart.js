@@ -1,25 +1,40 @@
 import { create } from "zustand";
 
-const useCart = create((set) => ({
-    items: [],
-    quantity: 0,
-    addToCart: (item) => set((state) => {
-        const newItemID = Number(item.target.dataset.productId);
-        const founded = state.items.find(item => item.id === newItemID);
+const useCart = create((set, get) => {
+    return {
+        items: [],
+        totalQuantity: 0,
+        invoice: {
+            totalPrice: 0,
+            totalDiscount: 0,
+            deliveryCost: 0,
+            finalPrice: 0,
+        },
+        actions: {
+            addToCart: (itemID) => {
+                const idExist = get().items.some(item => item.id === itemID);
 
-        if (founded) {
-            founded.quantity++;
-            state.quantity++;
-            return { items: [...state.items] }
-        }
-        else {
-            state.quantity++;
-            return { items: [...state.items, { id: newItemID, quantity: 1 }] }
-        }
+                set((state) => {
+                    if (idExist) {
+                        console.log("Item quantity increased!");
+                        return {
+                            items: state.items.map(item => item.id === itemID ? {...item, quantity: item.quantity + 1} : item),
+                            totalQuantity: state.totalQuantity + 1
+                        }
+                    }
+                    else{
+                        console.log("New item added!");
+                        return {
+                            items: [...state.items, {id: itemID, quantity: 1}],
+                            totalQuantity: state.totalQuantity + 1
+                        }
+                    }
+                })
+            },
+            removeFromCart: () => { }
+        },
+    }
 
-    }),
-    removeItem: (id) => set((state) => state.createItems.filter(item => item.id !== id)),
-    clearItems: () => set({}),
-}));
+});
 
 export default useCart;
