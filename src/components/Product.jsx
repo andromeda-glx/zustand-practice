@@ -20,7 +20,7 @@ export default function Product({ id, images, title, price }) {
                 </div>
             </div>
             <div className="w-[100%] flex items-center">
-                <Button text={"Add to Cart"} backgroundColor={"#252A34"} productId={id} color={"white"} handleClick={() => addToCart(id)} />
+                <Button text={"Add to Cart"} backgroundColor={"#252A34"} productId={id} color={"white"} handleClick={() => addToCart(id, price)} />
             </div>
         </div>
     )

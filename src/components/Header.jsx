@@ -13,7 +13,7 @@ export default function Header() {
                 <div className="">
                     OnlineShop
                 </div>
-                <div className="relative" onClick={() => navigate('cart')}>
+                <div className="relative cursor-pointer" onClick={() => navigate('cart')}>
                     <div className="">
                         <FontAwesomeIcon icon={faShoppingCart} />
                     </div>
