@@ -21,14 +21,14 @@ export default function Cart() {
 
     return (
         <div className="grid grid-rows-[auto_1fr] lg:grid lg:grid-cols-[1fr_500px] gap-5">
-            <div className="">
+            <div className="bg-white p-5 max-h-dvh overflow-auto">
                 {!error ? isLoading ? <Spinner /> : products &&
                     <ul className="grid grid-cols-1 gap-5">
-                        {products && products?.map(({ id, title, images, price }) => {
+                        {products && products.length ? products?.map(({ id, title, images, price }) => {
                             return <li key={id}>
                                 <CartItem id={id} title={title} images={images} price={price} quantity={items.find(item => item.id === id).quantity} />
                             </li>
-                        })}
+                        }) : <p className="text-center">The cart is empty</p>}
                     </ul>
                     :
                     <h2>Network Error. {error.message}</h2>

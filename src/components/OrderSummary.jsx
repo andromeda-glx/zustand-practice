@@ -1,5 +1,6 @@
 import useCart from "../stores/cart"
 import convertToCurrency from "../utils/convertToCurrency";
+import Button from "./Button";
 
 export default function OrderSummary() {
     const cartQuantity = useCart((state) => state.totalQuantity);
@@ -24,6 +25,9 @@ export default function OrderSummary() {
                 <div className="flex justify-between gap-x-2 mt-5 text-red-800 text-xl">
                     <h3 className="font-semibold">Total Price: </h3>
                     <p className="font-bold">{convertToCurrency(invoice.totalPrice)}</p>
+                </div>
+                <div className="mt-10">
+                    <Button text={"Place Your Order"} color={"white"} backgroundColor={"#252A34"} />
                 </div>
             </div>
         </div>
