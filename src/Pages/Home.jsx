@@ -1,13 +1,12 @@
 import Product from "../components/Product";
 import { useFetchData } from "../hooks/useFetchData";
 import Spinner from "../components/Spinner";
-import Navbar from "../components/Navbar";
-import useCart from "../stores/cart";
 
 export default function Home() {
     const url = ['https://dummyjson.com/products'];
     const { data, isLoading, error } = useFetchData(url);
-    const products = data?.length ? data[0].products : null;
+    const products = data && data[0].data.products || null;
+    
 
     return (
         <>

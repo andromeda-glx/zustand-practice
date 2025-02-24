@@ -1,5 +1,3 @@
-import useCart from "../stores/cart";
-
 /* eslint-disable react/prop-types */
 export default function Button({ text, color, backgroundColor, handleClick }) {
 

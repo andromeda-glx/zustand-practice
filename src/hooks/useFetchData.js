@@ -6,20 +6,21 @@ export function useFetchData(urls) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    function fetchData(aUrls) {
-        console.log(aUrls);
-        const allData = [];
+    async function fetchData(aUrls) {
+        try {
+            const responses = await Promise.all(aUrls.map(aUrl => axios.get(aUrl)));
+            console.log(responses);
 
-        aUrls.forEach(aUrl => (
-            axios.get(aUrl)
-                .then(res => {
-                    allData.push(res.data)
-                    setData(allData);
-                })
-                .catch(e => setError(e))
-                .finally(() => setIsLoading(false))
-        ))
+            setData(responses);
+        }
+        catch(error){
+            setError(error);
+        }
+        finally{
+            setIsLoading(false);
+        }
     }
+
 
     useEffect(() => {
         setIsLoading(true);
