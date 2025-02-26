@@ -3,7 +3,7 @@ import useCart from "../stores/cart"
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 /* eslint-disable react/prop-types */
-export default function CartItem({ id, images, title, price, quantity, handleAdd }) {
+export default function CartItem({ id, images, title, price, quantity, handleAdd, handleDecrease }) {
     const remove = useCart((state) => state.actions.removeFromCart);
 
     return (
@@ -27,6 +27,7 @@ export default function CartItem({ id, images, title, price, quantity, handleAdd
                         <div className="inline-flex gap-x-5 border border-gray-300 items-center">
                             <span
                                 className="cursor-pointer bg-gray-300 w-7 h-7 flex justify-center items-center p-3"
+                                onClick={handleDecrease}
                             >
                                 <FontAwesomeIcon icon={faMinus} />
                             </span>
@@ -42,7 +43,7 @@ export default function CartItem({ id, images, title, price, quantity, handleAdd
                         </div>
                     </div>
                     <div>
-                        <button onClick={() => remove(id)} className="bg-red-600 text-white px-5 py-2 rounded-lg cursor-pointer mt-2" >
+                        <button onClick={() => remove(id, true)} className="bg-red-600 text-white px-5 py-2 rounded-lg cursor-pointer mt-2" >
                             Remove from Cart
                         </button>
                     </div>

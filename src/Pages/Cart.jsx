@@ -15,7 +15,7 @@ export default function Cart() {
     const urls = [];
 
     items.forEach(item => {
-        urls.push(`${mainURL}/${item.id}`);
+        item && urls.push(`${mainURL}/${item.id}`);
     });
 
     const { data, isLoading, error } = useFetchData(urls);
@@ -51,6 +51,7 @@ export default function Cart() {
                                     price={price}
                                     quantity={quantity}
                                     handleAdd={() => actions.addToCart(id)}
+                                    handleDecrease={() => actions.removeFromCart(id)}
                                 />
                             </li>
                         }) : <p className="text-center">The cart is empty</p>}

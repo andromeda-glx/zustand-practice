@@ -17,15 +17,15 @@ const useCart = create((set, get) => {
                 set((state) => {
                     if (idExist) {
                         return {
-                            items: state.items.map(item => item.id === itemID ? {...item, quantity: item.quantity + 1} : item),
+                            items: state.items.map(item => item.id === itemID ? { ...item, quantity: item.quantity + 1 } : item),
                         }
                     }
-                    else{
+                    else {
                         return {
-                            items: [...state.items, {id: itemID, quantity: 1}],
+                            items: [...state.items, { id: itemID, quantity: 1 }],
                         }
                     }
-                    
+
                 })
 
                 set((state) => {
@@ -33,18 +33,32 @@ const useCart = create((set, get) => {
                         totalQuantity: state.getTotalQuantity()
                     }
                 })
-                
+
             },
-            removeFromCart: (itemID) => { 
-                set((state) => {
-                    return {
-                        items: state.items.filter(item => item.id !== itemID)
-                    }
-                })
+            removeFromCart: (itemID, removeAll = false) => {
+                if (removeAll) {
+                    set((state) => {
+                        return {
+                            items: state.items.filter(item => item.id !== itemID)
+                        }
+                    })
+                }
+                else{
+                    set((state) => {
+                        return {
+                            items: state.items.map(item => {
+                                return item.id === itemID 
+                                    ? {...item, quantity: item.quantity - 1}
+                                    : item;
+                            })
+                        }
+                    })
+                }
 
                 set((state) => {
                     return {
-                        totalQuantity: state.getTotalQuantity()
+                        totalQuantity: state.getTotalQuantity(),
+                        items: state.items.filter(item => item.quantity !== 0)
                     }
                 })
             }
@@ -52,7 +66,7 @@ const useCart = create((set, get) => {
 
         getTotalQuantity: () => {
             let total = 0;
-            get().items.forEach(item => total += item.quantity);
+            get().items.forEach(item => total += item?.quantity || 0);
 
             return total;
         },
