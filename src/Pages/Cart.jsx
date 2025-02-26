@@ -10,6 +10,8 @@ export default function Cart() {
 
     const items = useCart((state) => state.items);
     const setTotalPrice = useCart(state => state.setTotalPrice);
+    const actions = useCart(state => state.actions);
+    const totalQuantity = useCart(state => state.totalQuantity);
     const urls = [];
 
     items.forEach(item => {
@@ -32,7 +34,7 @@ export default function Cart() {
             total += price * quantity;
         });
         setTotalPrice(total);
-    }, [products?.length]);
+    }, [products?.length, totalQuantity]);
     
 
     return (
@@ -48,6 +50,7 @@ export default function Cart() {
                                     images={images}
                                     price={price}
                                     quantity={quantity}
+                                    handleAdd={() => actions.addToCart(id)}
                                 />
                             </li>
                         }) : <p className="text-center">The cart is empty</p>}
