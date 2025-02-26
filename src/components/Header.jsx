@@ -2,6 +2,7 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/faShoppingCart
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useCart from "../stores/cart";
 import { useNavigate } from "react-router";
+import { faHippo } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
     const cartQuantity = useCart((state) => state.totalQuantity);
@@ -10,11 +11,18 @@ export default function Header() {
     return (
         <header className="bg-primary text-white sticky top-0 z-10">
             <div className="flex justify-between items-center py-5 px-10 text-xl max-w-[1500px] mx-auto">
-                <div className="">
-                    OnlineShop
+                <div
+                    className="flex items-center gap-x-2 text-3xl text-secondary font-semibold cursor-pointer"
+                    onClick={() => navigate("")}
+                >
+                    <span>onlineHippo</span>
+                    <FontAwesomeIcon icon={faHippo} />
                 </div>
-                <div className="relative cursor-pointer" onClick={() => navigate('cart')}>
-                    <div className="">
+                <div
+                    className="relative cursor-pointer"
+                    onClick={() => navigate('cart')}
+                >
+                    <div className="text-secondary">
                         <FontAwesomeIcon icon={faShoppingCart} />
                     </div>
 
