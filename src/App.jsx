@@ -5,7 +5,7 @@ import Cart from "./Pages/Cart"
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/zustand-practice/">
             <Routes>
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Home />} />
