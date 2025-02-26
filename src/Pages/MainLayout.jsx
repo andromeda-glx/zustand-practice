@@ -8,7 +8,7 @@ export default function MainLayout() {
         <>
             <Header />
             <main className="min-h-dvh bg-body">
-                <div className="max-w-[1500px] mx-auto p-10">
+                <div className="max-w-[1500px] mx-auto p-5 sm:p-10">
                     <Navbar />
                     <Outlet />
                 </div>

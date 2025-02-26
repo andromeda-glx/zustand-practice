@@ -10,7 +10,7 @@ export default function Header() {
 
     return (
         <header className="bg-primary text-white sticky top-0 z-10">
-            <div className="flex justify-between items-center py-5 px-10 text-xl max-w-[1500px] mx-auto">
+            <div className="flex justify-between items-center py-5 px-5 sm:px-10 text-xl max-w-[1500px] mx-auto">
                 <div
                     className="flex items-center gap-x-2 text-3xl text-secondary font-semibold cursor-pointer"
                     onClick={() => navigate("")}
