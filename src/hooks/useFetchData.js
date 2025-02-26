@@ -9,8 +9,6 @@ export function useFetchData(urls) {
     async function fetchData(aUrls) {
         try {
             const responses = await Promise.all(aUrls.map(aUrl => axios.get(aUrl)));
-            console.log(responses);
-
             setData(responses);
         }
         catch(error){

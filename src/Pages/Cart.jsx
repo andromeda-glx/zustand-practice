@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import CartItem from "../components/CartItem";
 import OrderSummary from "../components/OrderSummary";
 import Spinner from "../components/Spinner";
@@ -8,6 +9,7 @@ export default function Cart() {
     const mainURL = 'https://dummyjson.com/products';
 
     const items = useCart((state) => state.items);
+    const setTotalPrice = useCart(state => state.setTotalPrice);
     const urls = [];
 
     items.forEach(item => {
@@ -15,18 +17,38 @@ export default function Cart() {
     });
 
     const { data, isLoading, error } = useFetchData(urls);
-    const products = data && data.map(item => item.data);
-    console.log(products);
+    const products = data
+        && data.map(item => item.data)
+            .map(product => {
+                return {
+                    ...product,
+                    quantity: items.find(item => item.id === product.id)?.quantity
+                };
+            })
 
+    useEffect(() => {
+        let total = 0;         
+        products && products?.forEach(({price, quantity}) => {
+            total += price * quantity;
+        });
+        setTotalPrice(total);
+    }, [products?.length]);
+    
 
     return (
         <div className="grid grid-rows-[auto_1fr] lg:grid lg:grid-cols-[1fr_500px] gap-5">
             <div className="bg-white p-5 max-h-dvh overflow-auto">
                 {!error ? isLoading ? <Spinner /> : products &&
                     <ul className="grid grid-cols-1 gap-5">
-                        {products && products.length ? products?.map(({ id, title, images, price }) => {
+                        {products && products.length ? products?.map(({ id, title, images, price, quantity }) => {
                             return <li key={id}>
-                                <CartItem id={id} title={title} images={images} price={price} quantity={items.find(item => item.id === id).quantity} />
+                                <CartItem
+                                    id={id}
+                                    title={title}
+                                    images={images}
+                                    price={price}
+                                    quantity={quantity}
+                                />
                             </li>
                         }) : <p className="text-center">The cart is empty</p>}
                     </ul>
